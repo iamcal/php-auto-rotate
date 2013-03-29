@@ -20,29 +20,29 @@ http://sylvana.net/jpegcrop/exif_orientation.html
     if ($format == 'JPEG' || $format == 'TIFF'){
 
       $meta = exif_read_data($filename, null, true);
-    	if (is_array($meta) && is_array($meta['IFD0'])){
+      if (is_array($meta) && is_array($meta['IFD0'])){
 
-    		$or = $meta['IFD0']['Orientation'];
+    	$or = $meta['IFD0']['Orientation'];
 
-    		if ($or == 2) $rotate = '-flop';
-    		if ($or == 3) $rotate = '-rotate 180';
-    		if ($or == 4) $rotate = '-flip';
-    		if ($or == 5) $rotate = '-flop -rotate 270';
-    		if ($or == 6) $rotate = '-rotate 90';
-    		if ($or == 7) $rotate = '-flop -rotate 90';
-    		if ($or == 8) $rotate = '-rotate 270';
+    	if ($or == 2) $rotate = '-flop';
+    	if ($or == 3) $rotate = '-rotate 180';
+    	if ($or == 4) $rotate = '-flip';
+    	if ($or == 5) $rotate = '-flop -rotate 270';
+    	if ($or == 6) $rotate = '-rotate 90';
+    	if ($or == 7) $rotate = '-flop -rotate 90';
+    	if ($or == 8) $rotate = '-rotate 270';
 
-    		if ($or >= 5 && $or <=8) $rotate_aspect = true;
-    	}
+    	if ($or >= 5 && $or <=8) $rotate_aspect = true;
+      }
     }
 
 If we're going to be doing calculations based on source image size, swap them now for 
 images rotated on their sides.
 
     if ($rotate_aspect){
-    	$t = $w;
-    	$w = $h;
-    	$h = $t;
+      $t = $w;
+      $w = $h;
+      $h = $t;
     }
 
 Now we have everything we need to e.g. produce thumbnails:
